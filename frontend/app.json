@@ -16,7 +16,10 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#000"
       },
-      
+      "permissions": [
+        "PACKAGE_USAGE_STATS"
+      ],
+
       "package": "com.gzen.app"
     },
     "web": {
