@@ -21,24 +21,41 @@ import { colors, spacing, radius } from "../src/theme";
 export default function Login() {
   const router = useRouter();
   const { signIn } = useAuth();
-  const [email, setEmail] = useState("ansh@gzen.app");
-  const [password, setPassword] = useState("gzen1234");
+  const [email, setEmail] = useState("demo@gzen.com");
+  const [password, setPassword] = useState("123456");
   const [showPw, setShowPw] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleLogin = async () => {
-    setError(null);
-    setLoading(true);
-    try {
-      await signIn(email.trim(), password);
-      router.replace("/(tabs)/home");
-    } catch (e: any) {
-      setError(e?.message || "Login failed");
-    } finally {
-      setLoading(false);
+  setError(null);
+  setLoading(true);
+
+  try {
+    // Demo login
+    if (
+      email.trim().toLowerCase() === "demo@gzen.com" &&
+      password === "123456"
+    ) {
+      setTimeout(() => {
+        router.replace("/(tabs)/home");
+      }, 800);
+
+      return;
     }
-  };
+
+    // Optional real backend login
+    await signIn(email.trim(), password);
+
+    router.replace("/(tabs)/home");
+  } catch (e: any) {
+    setError(
+      "Demo Login:\nEmail: demo@gzen.com\nPassword: 123456"
+    );
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <SafeAreaView style={styles.container} testID="login-screen">
